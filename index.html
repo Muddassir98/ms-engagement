@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1a0207">
+<meta name="theme-color" content="#14020a">
 <title>Muddassir & Sadaf · Engagement · 15 November 2026</title>
 <meta name="description" content="Muddassir & Sadaf are getting engaged. Sunday, 15 November 2026, 7 pm, Hotel Gazebo, Rohinjan, Panvel.">
 <meta property="og:title" content="Muddassir & Sadaf are getting engaged">
@@ -14,143 +14,146 @@
 <style>
   :root {
     color-scheme: dark;
-    --ruby-deep: #1a0207;
+    --night: #14020a;
     --ruby: #4a0612;
-    --ruby-mid: #7a0c1e;
     --gold: #d9b26a;
     --gold-light: #f3dca6;
-    --pearl: #f6ebe6;
-    --pearl-dim: #cdb5ad;
+    --pearl: #fbf1ec;
+    --pearl-dim: #d8bfb8;
+    --blush: #ffcfc4;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
+  html { scroll-behavior: smooth; }
   body {
-    background: var(--ruby-deep);
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(122,12,30,.55), transparent 70%),
-      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(122,12,30,.35), transparent 70%);
-    background-attachment: fixed;
+    background: var(--night);
     color: var(--pearl);
     font: 300 1.0625rem/1.7 "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
   body.locked { overflow: hidden; }
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 4px; }
 
-  /* ---------- Glitter cover ---------- */
+  /* =============== Glitter cover =============== */
   #cover {
     position: fixed; inset: 0; z-index: 50;
-    background: var(--ruby-deep);
-    display: grid; place-items: center;
-    text-align: center;
-    cursor: pointer;
-    transition: opacity 1.2s ease;
+    background: var(--night);
+    display: grid; place-items: center; text-align: center;
+    cursor: pointer; transition: opacity 1.2s ease;
     -webkit-tap-highlight-color: transparent;
   }
   #cover.gone { opacity: 0; pointer-events: none; }
   #glitter { position: absolute; inset: 0; width: 100%; height: 100%; }
   .cover-text {
     position: relative; z-index: 2; pointer-events: none;
-    padding: 2rem;
-    padding-top: calc(2rem + env(safe-area-inset-top, 0px));
-    padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
-    transition: opacity .6s ease;
+    padding: calc(2rem + env(safe-area-inset-top, 0px)) 2rem calc(2rem + env(safe-area-inset-bottom, 0px));
+    transition: opacity .5s ease;
   }
-  #cover.blowing .cover-text { opacity: .0; }
-  .cover-text .hidden-line { font-size: 1rem; letter-spacing: .02em; color: var(--pearl-dim); }
+  #cover.opening .cover-text { opacity: 0; }
+  .hidden-line { font-size: 1rem; letter-spacing: .02em; color: var(--pearl-dim); }
   .monogram {
     font-family: "Bodoni Moda", Didot, Georgia, serif; font-style: italic;
     font-size: clamp(4rem, 18vw, 7rem); line-height: 1.1;
-    color: var(--gold-light);
-    text-shadow: 0 0 30px rgba(217,178,106,.35);
-    margin: .5rem 0 1.5rem;
+    color: var(--gold-light); text-shadow: 0 0 30px rgba(217,178,106,.4);
+    margin: .25rem 0 1.25rem;
   }
-  .monogram span { font-size: .55em; color: var(--gold); padding: 0 .1em; }
+  .monogram span { font-size: .55em; color: var(--gold); padding: 0 .15em; }
   #startBtn {
     pointer-events: auto;
-    font: 400 1rem "Jost", system-ui, sans-serif; letter-spacing: .03em;
-    color: var(--ruby-deep); background: var(--gold-light);
-    border: 0; border-radius: 999px; padding: .9rem 1.8rem; cursor: pointer;
+    font: 400 1rem "Jost", system-ui, sans-serif; letter-spacing: .06em;
+    color: var(--night); background: var(--gold-light);
+    border: 0; border-radius: 999px; padding: .95rem 2rem; cursor: pointer;
     box-shadow: 0 0 0 6px rgba(243,220,166,.15);
     animation: breathe 2.4s ease-in-out infinite;
   }
   @keyframes breathe { 50% { box-shadow: 0 0 0 14px rgba(243,220,166,.05); } }
-  .hint { margin-top: 1rem; font-size: .9375rem; color: var(--pearl-dim); min-height: 1.6em; }
-  #micHint {
-    position: absolute; z-index: 3; left: 0; right: 0;
-    bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
-    text-align: center; color: var(--gold-light); font-size: 1rem;
-    opacity: 0; transition: opacity .5s ease; pointer-events: none;
-  }
-  #cover.listening #micHint { opacity: 1; }
-  #cover.listening .cover-text { opacity: 0; }
+  .hint { margin-top: 1rem; font-size: .9375rem; color: var(--pearl-dim); }
 
-  /* ---------- Invitation ---------- */
-  main {
-    max-width: 36rem; margin: 0 auto;
-    padding: calc(3rem + env(safe-area-inset-top, 0px)) 1.25rem calc(3rem + env(safe-area-inset-bottom, 0px));
-    text-align: center;
-  }
-  /* ---------- Stage scene (fixed background) ---------- */
-  #scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
-    background: radial-gradient(ellipse 70% 60% at 50% 35%, #3a0711 0%, #1d0308 55%, #0e0104 100%); }
-  .beam { position: absolute; inset: 0; mix-blend-mode: screen; filter: blur(5px); }
-  .beam.one {
-    clip-path: polygon(30% 0, 44% 0, 84% 92%, 18% 92%);
-    background: linear-gradient(180deg, rgba(255,205,195,.30), rgba(255,170,160,.10) 70%, rgba(255,170,160,.02));
-    animation: flicker 7s ease-in-out infinite;
-  }
-  .beam.two {
-    clip-path: polygon(62% 0, 68% 0, 60% 92%, 42% 92%);
-    background: linear-gradient(180deg, rgba(255,215,200,.14), rgba(255,180,170,.03));
-    animation: flicker 9s ease-in-out infinite reverse;
-  }
-  @keyframes flicker { 0%,100% { opacity: .9; } 45% { opacity: .65; } 60% { opacity: 1; } }
-  .curtain {
-    position: absolute; top: -2%; bottom: -2%; width: clamp(56px, 17vw, 260px);
+  /* =============== Stage scene =============== */
+  #scene {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(0,0,0,.55), transparent 30%, transparent 70%, rgba(0,0,0,.55)),
-      repeating-linear-gradient(90deg, #2a030a 0, #6e0c1c 1.6vw, #8e1426 2.2vw, #4a0612 3.4vw, #2a030a 4.4vw);
-    box-shadow: 0 0 60px rgba(0,0,0,.8);
-    transform-origin: top center;
+      radial-gradient(ellipse 60% 45% at 45% 55%, #3d0a17 0%, transparent 70%),
+      radial-gradient(ellipse 90% 70% at 50% 40%, #240410 0%, #0d0105 75%);
   }
-  .curtain.left { left: 0; border-bottom-right-radius: 40% 6%; animation: sway 8s ease-in-out infinite; }
-  .curtain.right { right: 0; border-bottom-left-radius: 40% 6%; animation: sway 9s ease-in-out infinite reverse; }
-  @keyframes sway { 50% { transform: skewX(1.2deg); } }
-  .valance { position: absolute; top: 0; left: 0; right: 0; height: 5vh;
-    background: repeating-radial-gradient(ellipse 4vw 5vh at 2vw 0, #6e0c1c 0 60%, transparent 62%);
-    filter: drop-shadow(0 6px 10px rgba(0,0,0,.6)); opacity: .9; }
+  #sky, #dust { position: absolute; inset: 0; width: 100%; height: 100%; }
   .stage {
-    position: absolute; left: 50%; bottom: 3vh; transform: translateX(-50%);
-    width: min(78vw, 640px); height: 11vh; border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(255,190,180,.45), rgba(122,12,30,.35) 60%, transparent 75%);
+    position: absolute; left: 50%; bottom: 1.5vh; transform: translateX(-50%);
+    width: min(94vw, 760px); height: 14vh;
   }
-  .stage::after {
-    content: ""; position: absolute; inset: 14% 8%; border-radius: 50%;
-    border: 2px solid rgba(255,215,205,.75);
-    box-shadow: 0 0 18px rgba(255,170,160,.8), inset 0 0 18px rgba(255,170,160,.6);
+  .stage .floor {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 45%, rgba(255,214,204,.55) 0%, rgba(214,120,128,.35) 35%, rgba(90,12,28,.25) 60%, transparent 72%);
+  }
+  .stage .ring {
+    position: absolute; inset: 22% 9%; border-radius: 50%;
+    border: 2px solid rgba(255,232,224,.95);
+    box-shadow: 0 0 6px rgba(255,236,228,.9), 0 0 22px rgba(255,170,160,.85), 0 0 50px rgba(255,140,140,.45),
+                inset 0 0 14px rgba(255,190,180,.7);
     animation: ring 4s ease-in-out infinite;
   }
-  @keyframes ring { 50% { box-shadow: 0 0 30px rgba(255,170,160,.95), inset 0 0 26px rgba(255,170,160,.75); } }
+  @keyframes ring { 50% { filter: brightness(1.18); } }
+  .fog {
+    position: absolute; bottom: 0; height: 9vh; width: 70%;
+    background: radial-gradient(ellipse at center, rgba(255,205,198,.32), transparent 70%);
+    filter: blur(14px); border-radius: 50%;
+  }
+  .fog.a { left: 0; animation: drift 14s ease-in-out infinite alternate; }
+  .fog.b { right: 0; animation: drift 11s ease-in-out infinite alternate-reverse; }
+  @keyframes drift { from { transform: translateX(-8%); opacity: .7; } to { transform: translateX(10%); opacity: 1; } }
+
+  #dancers {
+    position: absolute; left: 50%; bottom: 7vh; transform: translateX(-50%);
+    height: min(40vh, 470px); width: auto; overflow: visible;
+    filter: drop-shadow(0 0 14px rgba(255,180,170,.35));
+  }
+  #dancers .dance { transform-origin: 120px 296px; animation: waltz 6s ease-in-out infinite alternate; }
+  #dancers .skirt { transform-origin: 132px 120px; animation: swish 3s ease-in-out infinite alternate; }
+  #dancers .tulle { transform-origin: 132px 120px; animation: swish 3s ease-in-out .4s infinite alternate-reverse; }
+  #dancers .veil  { transform-origin: 144px 50px; animation: veil 3s ease-in-out infinite alternate; }
+  #dancers .gl { animation: twinkle 2.2s ease-in-out infinite; }
+  @keyframes waltz {
+    0%   { transform: translateX(-7px) rotate(-2.5deg); }
+    50%  { transform: translateY(-2px); }
+    100% { transform: translateX(7px) rotate(2.5deg); }
+  }
+  @keyframes swish { from { transform: skewX(4deg) scaleX(1.03); } to { transform: skewX(-4deg) scaleX(.985); } }
+  @keyframes veil  { from { transform: rotate(-3deg); } to { transform: rotate(7deg); } }
+  @keyframes twinkle { 0%,100% { opacity: .15; } 50% { opacity: 1; } }
   #couple {
     position: absolute; left: 50%; bottom: 6vh; transform: translateX(-50%);
-    height: min(58vh, 560px); width: auto; max-width: 70vw; object-fit: cover;
+    height: min(56vh, 600px); width: auto; max-width: 80vw; object-fit: cover;
     -webkit-mask-image: radial-gradient(ellipse 48% 50% at 50% 50%, #000 60%, transparent 100%);
             mask-image: radial-gradient(ellipse 48% 50% at 50% 50%, #000 60%, transparent 100%);
-    opacity: .85;
   }
-  #dust { position: absolute; inset: 0; width: 100%; height: 100%; }
-  main { position: relative; z-index: 1; }
+  .has-video #dancers { display: none; }
 
+  .curtain { position: absolute; top: 0; height: 100%; width: clamp(54px, 15vw, 280px); }
+  .curtain.left { left: 0; transform-origin: top left; animation: sway 9s ease-in-out infinite; }
+  .curtain.right { right: 0; transform: scaleX(-1); }
+  .curtain.right svg { animation: sway 10s ease-in-out infinite reverse; transform-origin: top left; }
+  .curtain svg { width: 100%; height: 100%; display: block; }
+  @keyframes sway { 50% { transform: skewX(.8deg); } }
+  .vignette {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(8,0,3,.55), transparent 18%),
+      radial-gradient(ellipse 85% 75% at 50% 50%, transparent 55%, rgba(5,0,2,.65) 100%);
+  }
+
+  /* =============== Invitation card (single box) =============== */
+  main {
+    position: relative; z-index: 1; max-width: 36rem; margin: 0 auto; text-align: center;
+    padding: calc(3rem + env(safe-area-inset-top, 0px)) 1.25rem calc(46vh + env(safe-area-inset-bottom, 0px));
+  }
   .card {
-    position: relative;
-    padding: 3.5rem 1.75rem 3rem;
-    border: 1px solid rgba(217,178,106,.45);
-    outline: 1px solid rgba(217,178,106,.2); outline-offset: 7px;
-    background: linear-gradient(180deg, rgba(26,2,7,.45), rgba(26,2,7,.25));
-    -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+    position: relative; padding: 3.5rem 1.75rem 3rem;
+    border: 1px solid rgba(217,178,106,.55);
+    outline: 1px solid rgba(217,178,106,.25); outline-offset: 7px;
+    background: linear-gradient(180deg, rgba(26,2,7,.55), rgba(26,2,7,.4));
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
     text-shadow: 0 2px 12px rgba(0,0,0,.6);
   }
   .corner { position: absolute; width: 22px; height: 22px; border-color: var(--gold); border-style: solid; }
@@ -169,32 +172,27 @@
 
   .names {
     font-family: "Bodoni Moda", Didot, Georgia, serif; font-style: italic; font-weight: 400;
-    font-size: clamp(3rem, 14vw, 4.75rem); line-height: 1.05;
-    margin: 2.25rem 0 .5rem;
+    font-size: clamp(3rem, 14vw, 4.75rem); line-height: 1.05; margin: 2.25rem 0 .5rem;
     background: linear-gradient(100deg, var(--gold) 20%, #fff4d6 40%, var(--gold-light) 50%, var(--gold) 70%);
     background-size: 250% 100%; background-position: 100% 0;
     -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: none; filter: drop-shadow(0 2px 10px rgba(0,0,0,.5));
   }
   .revealed .names { animation: shimmer 3.2s ease 1.6s forwards; }
   @keyframes shimmer { to { background-position: 0 0; } }
   .names .amp { display: block; font-size: .5em; line-height: 1.3; }
-  .engaged { font-size: 1.25rem; letter-spacing: .04em; color: var(--pearl); }
+  .engaged { font-size: 1.25rem; letter-spacing: .04em; }
 
   .invite-text { margin-top: 2.25rem; }
   .invite-text p + p { margin-top: .5rem; }
-  .person {
-    font-family: "Bodoni Moda", Georgia, serif; font-size: clamp(1.6rem, 6.5vw, 2rem);
-    color: var(--gold-light); line-height: 1.25; margin-top: .75rem !important;
-  }
+  .person { font-family: "Bodoni Moda", Georgia, serif; font-size: clamp(1.6rem, 6.5vw, 2rem); color: var(--gold-light); line-height: 1.25; margin-top: .75rem !important; }
   .with { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; color: var(--pearl-dim); }
 
-  /* Flip date */
   .date { display: flex; justify-content: center; gap: .6rem; margin-top: 2.5rem; perspective: 600px; }
   .tile {
     min-width: 5.2rem; padding: .9rem .6rem .7rem;
-    background: var(--pearl); color: var(--ruby);
-    border-radius: 6px; transform-origin: top center;
-    box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    background: var(--pearl); color: var(--ruby); text-shadow: none;
+    border-radius: 6px; transform-origin: top center; box-shadow: 0 10px 24px rgba(0,0,0,.35);
     transform: rotateX(-95deg); opacity: 0;
   }
   .revealed .tile { animation: flip .9s cubic-bezier(.3,1.4,.5,1) forwards; }
@@ -212,12 +210,12 @@
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
     padding: .8rem 1.4rem; border-radius: 999px;
-    font: 400 .975rem "Jost", system-ui, sans-serif; letter-spacing: .02em;
+    font: 400 .975rem "Jost", system-ui, sans-serif; letter-spacing: .02em; text-shadow: none;
     text-decoration: none; cursor: pointer;
     border: 1px solid var(--gold); color: var(--gold-light); background: transparent;
     transition: background .2s, color .2s;
   }
-  .btn:hover, .btn.solid { background: var(--gold-light); color: var(--ruby-deep); }
+  .btn:hover, .btn.solid { background: var(--gold-light); color: var(--night); }
   .btn.solid:hover { background: var(--gold); }
 
   .countdown-wrap { margin-top: 3.5rem; }
@@ -226,19 +224,14 @@
   .countdown div { min-width: 3.5rem; }
   .countdown b { display: block; font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: 2.4rem; line-height: 1.1; }
   .countdown small { font-size: .8125rem; color: var(--pearl-dim); }
-
   footer { margin-top: 3rem; color: var(--pearl-dim); font-size: .9375rem; }
   footer .sign { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; font-size: 1.35rem; color: var(--gold-light); margin-top: .25rem; }
 
-  /* Music toggle */
   #soundBtn {
-    position: fixed; z-index: 40;
-    top: calc(1rem + env(safe-area-inset-top, 0px)); right: 1rem;
-    width: 44px; height: 44px; border-radius: 50%;
-    display: none; place-items: center; cursor: pointer;
-    background: rgba(26,2,7,.6); color: var(--gold-light);
-    border: 1px solid rgba(217,178,106,.6);
-    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    position: fixed; z-index: 40; top: calc(1rem + env(safe-area-inset-top, 0px)); right: 1rem;
+    width: 44px; height: 44px; border-radius: 50%; display: none; place-items: center; cursor: pointer;
+    background: rgba(20,2,8,.55); color: var(--gold-light); border: 1px solid rgba(217,178,106,.6);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   }
   .revealed #soundBtn { display: grid; }
   #soundBtn svg { width: 20px; height: 20px; }
@@ -246,44 +239,155 @@
   #soundBtn.muted .on { display: none; }
   #soundBtn.muted .off { display: block; }
 
-  /* Orchestrated reveal */
+  /* Reveal choreography */
   .rise { opacity: 0; transform: translateY(14px); filter: blur(4px); }
   .revealed .rise { animation: rise 1.1s ease forwards; animation-delay: calc(var(--i) * .22s + .2s); }
   @keyframes rise { to { opacity: 1; transform: none; filter: none; } }
 
   @media (prefers-reduced-motion: reduce) {
-    .rise, .tile { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
-    .names { background-position: 0 0; animation: none !important; }
-    #startBtn { animation: none; }
-    .beam, .curtain, .stage::after { animation: none !important; }
+    *, *::before, *::after { animation: none !important; }
+    .rise, .tile { opacity: 1 !important; transform: none !important; filter: none !important; }
   }
 </style>
 </head>
 <body class="locked">
 
-<!-- Stage scene behind the invitation -->
+<!-- ================= Stage scene ================= -->
 <div id="scene" aria-hidden="true">
-  <div class="beam one"></div>
-  <div class="beam two"></div>
-  <div class="stage"></div>
-  <!-- Put your own clip next to index.html as couple.mp4 (or change src). Hidden automatically if missing. -->
+  <canvas id="sky"></canvas>
+  <div class="stage"><div class="floor"></div><div class="ring"></div></div>
   <video id="couple" src="couple.mp4" autoplay muted loop playsinline preload="auto"></video>
+
+  <svg id="dancers" viewBox="0 0 240 300">
+    <defs>
+      <linearGradient id="suit" x1="0" y1="0" x2="1" y2="0.3">
+        <stop offset="0" stop-color="#3a3036"/>
+        <stop offset=".18" stop-color="#121014"/>
+        <stop offset="1" stop-color="#020203"/>
+      </linearGradient>
+      <linearGradient id="gownH" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fffaf7"/>
+        <stop offset=".35" stop-color="#fbe6e0"/>
+        <stop offset=".75" stop-color="#e7b9b6"/>
+        <stop offset="1" stop-color="#b9737c"/>
+      </linearGradient>
+      <linearGradient id="gownV" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#5a1420" stop-opacity="0"/>
+        <stop offset=".7" stop-color="#5a1420" stop-opacity=".12"/>
+        <stop offset="1" stop-color="#5a1420" stop-opacity=".45"/>
+      </linearGradient>
+      <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f7d9cb"/>
+        <stop offset="1" stop-color="#b47c6c"/>
+      </linearGradient>
+      <linearGradient id="veilG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#fff" stop-opacity=".08"/>
+      </linearGradient>
+    </defs>
+    <g class="dance">
+      <!-- Groom: arm behind bride -->
+      <path d="M116 88 Q132 100 146 112" fill="none" stroke="#050506" stroke-width="9" stroke-linecap="round"/>
+      <!-- Groom: legs -->
+      <path fill="#050506" d="M92 182 L89 288 L101 289 L104 206 L107 289 L118 288 L114 182 Z"/>
+      <path fill="#000" d="M86 286 Q94 283 102 288 L101 292 L86 292 Z M106 288 Q114 283 122 287 L121 292 L106 292 Z"/>
+      <!-- Groom: jacket -->
+      <path fill="url(#suit)" d="M86 80 Q100 70 116 76 Q123 104 118 144 L120 188 Q102 195 86 188 L89 144 Q79 108 86 80 Z"/>
+      <path d="M87 82 Q80 112 89 144 L87 186" fill="none" stroke="rgba(255,200,190,.75)" stroke-width="1.2"/>
+      <!-- shirt, lapels, bow tie -->
+      <path fill="#f8f1ee" d="M99 75 L105 100 L111 76 Q105 73 99 75 Z"/>
+      <path fill="#1c181c" d="M98 76 L103 102 L94 88 Z M112 77 L107 102 L115 90 Z"/>
+      <path fill="#000" d="M101 79 L105 81 L109 79 L109 84 L105 82 L101 84 Z"/>
+      <!-- Groom: raised arm (waltz frame) -->
+      <path d="M89 86 Q72 97 68 82 L67 75" fill="none" stroke="url(#suit)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M86 88 Q72 96 68 82" fill="none" stroke="rgba(255,200,190,.55)" stroke-width="1"/>
+      <!-- Groom: head -->
+      <rect x="100" y="64" width="8" height="10" fill="url(#skin)"/>
+      <ellipse cx="105" cy="55" rx="11" ry="13" fill="url(#skin)" transform="rotate(10 105 55)"/>
+      <path fill="#0a0506" d="M93 52 Q93 39 106 39 Q118 40 117 52 Q114 45 105 46 Q98 47 96 56 Z"/>
+
+      <!-- Bride: veil -->
+      <path class="veil" fill="url(#veilG)" d="M146 46 Q178 108 194 226 Q200 268 190 292 Q172 236 162 172 Q152 112 140 60 Z"/>
+      <!-- Bride: gown -->
+      <path class="skirt" fill="url(#gownH)" d="M124 118 Q104 182 50 282 Q66 297 124 299 Q184 297 206 282 Q164 182 142 118 Z"/>
+      <path class="skirt" fill="url(#gownV)" d="M124 118 Q104 182 50 282 Q66 297 124 299 Q184 297 206 282 Q164 182 142 118 Z"/>
+      <path class="tulle" fill="#fff" opacity=".22" d="M126 122 Q114 190 74 286 Q110 294 128 292 Q132 200 134 122 Z"/>
+      <path class="tulle" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".8" d="M128 128 Q118 196 94 290 M134 128 Q138 200 146 294 M138 126 Q156 196 180 288"/>
+      <!-- Bride: bodice -->
+      <path fill="url(#gownH)" d="M123 76 Q133 70 143 76 L141 120 Q133 126 125 120 Z"/>
+      <path d="M124 78 L126 118" stroke="rgba(255,255,255,.8)" stroke-width="1"/>
+      <!-- Bride: arm into groom's raised hand -->
+      <path d="M125 82 Q98 90 70 70" fill="none" stroke="url(#skin)" stroke-width="4.6" stroke-linecap="round"/>
+      <circle cx="66" cy="66" r="4.5" fill="url(#skin)"/>
+      <!-- Bride: other arm on groom's shoulder -->
+      <path d="M128 84 Q120 80 114 78" fill="none" stroke="url(#skin)" stroke-width="4" stroke-linecap="round"/>
+      <!-- Bride: head -->
+      <rect x="128" y="66" width="7" height="10" fill="url(#skin)"/>
+      <ellipse cx="132" cy="58" rx="10" ry="12" fill="url(#skin)" transform="rotate(-8 132 58)"/>
+      <path fill="#2a1012" d="M121 56 Q121 43 133 43 Q143 44 143 56 Q138 49 129 51 Q124 52 121 56 Z"/>
+      <circle cx="143" cy="49" r="7" fill="#2a1012"/>
+      <circle cx="141" cy="44" r="1.3" fill="#fff"/><circle cx="146" cy="46" r="1.1" fill="#fff"/>
+      <!-- Gown sparkles -->
+      <g fill="#fff">
+        <circle class="gl" cx="104" cy="214" r="1"   style="animation-delay:0s"/>
+        <circle class="gl" cx="146" cy="196" r="1.2" style="animation-delay:.4s"/>
+        <circle class="gl" cx="124" cy="240" r=".9"  style="animation-delay:.9s"/>
+        <circle class="gl" cx="166" cy="250" r="1.1" style="animation-delay:1.3s"/>
+        <circle class="gl" cx="88"  cy="262" r="1"   style="animation-delay:.2s"/>
+        <circle class="gl" cx="132" cy="160" r=".9"  style="animation-delay:1.7s"/>
+        <circle class="gl" cx="114" cy="276" r="1.2" style="animation-delay:.7s"/>
+        <circle class="gl" cx="182" cy="272" r=".9"  style="animation-delay:1.1s"/>
+        <circle class="gl" cx="138" cy="226" r="1"   style="animation-delay:1.9s"/>
+        <circle class="gl" cx="72"  cy="280" r=".9"  style="animation-delay:.5s"/>
+        <circle class="gl" cx="154" cy="282" r="1"   style="animation-delay:1.5s"/>
+        <circle class="gl" cx="120" cy="196" r=".8"  style="animation-delay:.3s"/>
+      </g>
+    </g>
+  </svg>
+
+  <div class="stage" style="pointer-events:none;background:none"><div class="fog a"></div><div class="fog b"></div></div>
   <canvas id="dust"></canvas>
-  <div class="curtain left"></div>
-  <div class="curtain right"></div>
-  <div class="valance"></div>
+
+  <div class="curtain left"><svg viewBox="0 0 100 1000" preserveAspectRatio="none"><use href="#drape"/></svg></div>
+  <div class="curtain right"><svg viewBox="0 0 100 1000" preserveAspectRatio="none"><use href="#drape"/></svg></div>
+  <div class="vignette"></div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="folds" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#1e0207"/><stop offset=".07" stop-color="#5e0a18"/>
+        <stop offset=".13" stop-color="#9c1a2c"/><stop offset=".19" stop-color="#4a0712"/>
+        <stop offset=".27" stop-color="#2a0309"/><stop offset=".36" stop-color="#7c1222"/>
+        <stop offset=".42" stop-color="#b42336"/><stop offset=".5" stop-color="#5a0915"/>
+        <stop offset=".58" stop-color="#2c0309"/><stop offset=".66" stop-color="#861526"/>
+        <stop offset=".73" stop-color="#c22a3e"/><stop offset=".81" stop-color="#6a0d1b"/>
+        <stop offset=".9" stop-color="#3a050e"/><stop offset=".96" stop-color="#8e1828"/>
+        <stop offset="1" stop-color="#4c0711"/>
+      </linearGradient>
+      <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#000" stop-opacity=".55"/>
+        <stop offset=".35" stop-color="#000" stop-opacity=".05"/>
+        <stop offset=".7" stop-color="#000" stop-opacity=".15"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".7"/>
+      </linearGradient>
+      <g id="drape">
+        <path fill="url(#folds)" d="M0 0 H100 C96 300 102 650 94 1000 H0 Z"/>
+        <path fill="url(#shade)" d="M0 0 H100 C96 300 102 650 94 1000 H0 Z"/>
+        <path fill="none" stroke="rgba(255,170,170,.25)" stroke-width="1.5" vector-effect="non-scaling-stroke" d="M100 0 C96 300 102 650 94 1000"/>
+      </g>
+    </defs>
+  </svg>
 </div>
 
-<!-- Glitter cover -->
-<div id="cover" role="dialog" aria-label="Reveal the invitation">
+<!-- ================= Glitter cover ================= -->
+<div id="cover" role="dialog" aria-label="Open the invitation">
   <canvas id="glitter" aria-hidden="true"></canvas>
   <div class="cover-text">
     <p class="hidden-line">Your invitation is hiding under the glitter</p>
     <p class="monogram">M<span>&amp;</span>S</p>
-    <button id="startBtn" type="button">Tap, then blow on the glitter</button>
-    <p class="hint" id="hint">or simply tap anywhere</p>
+    <button id="startBtn" type="button">Tap to open</button>
+    <p class="hint">or tap anywhere on the glitter</p>
   </div>
-  <p id="micHint">Blow gently on your screen, or tap to reveal</p>
 </div>
 
 <audio id="music" src="ringtone.mp3" loop preload="auto"></audio>
@@ -292,6 +396,7 @@
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
 </button>
 
+<!-- ================= Invitation ================= -->
 <main id="invite">
   <article class="card">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -341,7 +446,7 @@
 
     <section class="countdown-wrap rise" style="--i:15" aria-labelledby="cd-h">
       <h2 id="cd-h">Until we meet</h2>
-      <div class="countdown" aria-live="off">
+      <div class="countdown">
         <div><b id="d">0</b><small>days</small></div>
         <div><b id="h">0</b><small>hours</small></div>
         <div><b id="m">0</b><small>minutes</small></div>
@@ -366,224 +471,274 @@
   };
   const $ = id => document.getElementById(id);
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const DPR = () => Math.min(window.devicePixelRatio || 1, 2.5);
 
-  /* ---------------- Glitter ---------------- */
+  /* =================== Stage: light beam, haze, crystal strands, sparkles =================== */
+  const sky = $("sky"), sx = sky.getContext("2d");
+  const dust = $("dust"), dx = dust.getContext("2d");
+  let SW, SH, strands, glints = [], motes = [], haze = [];
+
+  // Soft glow sprite used for every sparkle (crisp on high-DPI screens)
+  const sprite = document.createElement("canvas");
+  sprite.width = sprite.height = 64;
+  (() => {
+    const g = sprite.getContext("2d"), r = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    r.addColorStop(0, "rgba(255,255,255,1)");
+    r.addColorStop(.18, "rgba(255,244,236,.9)");
+    r.addColorStop(.45, "rgba(255,200,190,.25)");
+    r.addColorStop(1, "rgba(255,180,170,0)");
+    g.fillStyle = r; g.fillRect(0, 0, 64, 64);
+  })();
+
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const stageY = () => SH * .9;
+  // Main spotlight: narrow at the top left, wide over the stage
+  function beamAt(y) {
+    const t = Math.min(1, Math.max(0, y / stageY()));
+    return [SW * lerp(.12, .05, t), SW * lerp(.32, .95, t)];
+  }
+
+  function buildScene() {
+    const d = DPR();
+    SW = innerWidth; SH = innerHeight;
+    for (const c of [sky, dust]) { c.width = SW * d; c.height = SH * d; }
+    sx.setTransform(d, 0, 0, d, 0, 0);
+    dx.setTransform(d, 0, 0, d, 0, 0);
+
+    // Hanging crystal strands, pre-rendered once
+    strands = document.createElement("canvas");
+    strands.width = SW * d; strands.height = SH * d;
+    const g = strands.getContext("2d");
+    g.setTransform(d, 0, 0, d, 0, 0);
+    glints = [];
+    const count = Math.round(SW / 6);
+    for (let i = 0; i < count; i++) {
+      const x = SW * (.18 + Math.random() * .8);
+      const len = SH * (.06 + Math.pow(Math.random(), 1.4) * .36);
+      const step = 4 + Math.random() * 3;
+      g.strokeStyle = "rgba(255,210,200,.06)"; g.lineWidth = .5;
+      g.beginPath(); g.moveTo(x, 0); g.lineTo(x, len); g.stroke();
+      for (let y = 2; y < len; y += step) {
+        const a = .38 * (1 - y / len) + .04;
+        g.fillStyle = `rgba(255,222,212,${a})`;
+        g.beginPath(); g.arc(x, y, .55 + Math.random() * .5, 0, 6.283); g.fill();
+        if (Math.random() < .05) glints.push({ x, y, ph: Math.random() * 6.283, sp: .6 + Math.random() * 1.8 });
+      }
+    }
+
+    // Floating haze inside the beam
+    haze = Array.from({ length: 7 }, () => ({
+      y: SH * (.25 + Math.random() * .6), r: Math.max(SW, SH) * (.18 + Math.random() * .2),
+      ph: Math.random() * 6.283, sp: .00008 + Math.random() * .00012, a: .03 + Math.random() * .035
+    }));
+
+    // Sparkles
+    const n = Math.min(520, Math.round(SW * SH / 1100));
+    motes = Array.from({ length: n }, () => spawnMote(true));
+  }
+
+  function spawnMote(anyY) {
+    const inBeam = Math.random() < .88;
+    const y = anyY ? Math.random() * stageY() : -4;
+    let x;
+    if (inBeam) { const [l, r] = beamAt(y); x = l + Math.random() * (r - l); }
+    else x = Math.random() * SW;
+    const big = Math.random();
+    return {
+      x, y, inBeam,
+      r: .35 + Math.pow(big, 4) * 2.2,
+      vy: .06 + Math.random() * .3, vx: (Math.random() - .35) * .12,
+      ph: Math.random() * 6.283, tw: .4 + Math.random() * 2.2,
+      glare: big > .975
+    };
+  }
+
+  function drawSky(t) {
+    sx.clearRect(0, 0, SW, SH);
+    const f = .9 + .07 * Math.sin(t * .0011) + .03 * Math.sin(t * .0043);
+    const sy = stageY();
+    const [bl, br] = beamAt(sy);
+    const tl = SW * .12, tr = SW * .32;
+
+    sx.globalCompositeOperation = "lighter";
+    // Beam body
+    let gr = sx.createLinearGradient(0, 0, 0, sy);
+    gr.addColorStop(0, `rgba(255,226,216,${.22 * f})`);
+    gr.addColorStop(.45, `rgba(255,190,182,${.085 * f})`);
+    gr.addColorStop(1, `rgba(255,170,165,${.07 * f})`);
+    sx.fillStyle = gr;
+    sx.beginPath(); sx.moveTo(tl, -2); sx.lineTo(tr, -2); sx.lineTo(br, sy); sx.lineTo(bl, sy); sx.closePath(); sx.fill();
+    // Brighter core
+    gr = sx.createLinearGradient(0, 0, 0, sy);
+    gr.addColorStop(0, `rgba(255,240,232,${.1 * f})`);
+    gr.addColorStop(1, `rgba(255,200,195,${.05 * f})`);
+    sx.fillStyle = gr;
+    sx.beginPath();
+    sx.moveTo(lerp(tl, tr, .3), -2); sx.lineTo(lerp(tl, tr, .7), -2);
+    sx.lineTo(lerp(bl, br, .68), sy); sx.lineTo(lerp(bl, br, .3), sy); sx.closePath(); sx.fill();
+    // Crisp edges with glow
+    sx.save();
+    sx.shadowColor = "rgba(255,200,190,.9)"; sx.shadowBlur = 12;
+    sx.strokeStyle = `rgba(255,228,220,${.38 * f})`; sx.lineWidth = 1.3;
+    sx.beginPath(); sx.moveTo(tl, -2); sx.lineTo(bl, sy); sx.moveTo(tr, -2); sx.lineTo(br, sy); sx.stroke();
+    sx.restore();
+    // Secondary faint beam from the right
+    gr = sx.createLinearGradient(0, 0, 0, sy);
+    gr.addColorStop(0, "rgba(255,215,205,.06)"); gr.addColorStop(1, "rgba(255,190,180,.02)");
+    sx.fillStyle = gr;
+    sx.beginPath(); sx.moveTo(SW * .72, -2); sx.lineTo(SW * .78, -2); sx.lineTo(SW * .66, sy); sx.lineTo(SW * .5, sy); sx.closePath(); sx.fill();
+
+    // Haze
+    for (const h of haze) {
+      const [l, r] = beamAt(h.y);
+      const x = (l + r) / 2 + Math.sin(t * h.sp + h.ph) * (r - l) * .3;
+      const rg = sx.createRadialGradient(x, h.y, 0, x, h.y, h.r);
+      rg.addColorStop(0, `rgba(255,190,185,${h.a})`); rg.addColorStop(1, "rgba(255,190,185,0)");
+      sx.fillStyle = rg; sx.fillRect(x - h.r, h.y - h.r, h.r * 2, h.r * 2);
+    }
+
+    // Crystal strands and glints
+    sx.globalCompositeOperation = "source-over";
+    sx.drawImage(strands, 0, 0, SW, SH);
+    sx.globalCompositeOperation = "lighter";
+    for (const gl of glints) {
+      const a = Math.pow(Math.max(0, Math.sin(t * .001 * gl.sp + gl.ph)), 8);
+      if (a < .05) continue;
+      sx.globalAlpha = a;
+      sx.drawImage(sprite, gl.x - 5, gl.y - 5, 10, 10);
+    }
+    sx.globalAlpha = 1;
+    sx.globalCompositeOperation = "source-over";
+  }
+
+  function drawDust(t) {
+    dx.clearRect(0, 0, SW, SH);
+    dx.globalCompositeOperation = "lighter";
+    const sy = stageY();
+    for (let i = 0; i < motes.length; i++) {
+      const m = motes[i];
+      m.y += m.vy; m.x += m.vx + Math.sin(t * .0005 + m.ph) * .08;
+      if (m.y > sy || m.x < -10 || m.x > SW + 10) { motes[i] = spawnMote(false); continue; }
+      let a = .25 + .75 * Math.pow(Math.abs(Math.sin(t * .0016 * m.tw + m.ph)), 2);
+      if (!m.inBeam) a *= .35;
+      else { const [l, r] = beamAt(m.y); if (m.x < l || m.x > r) a *= .3; }
+      const s = m.r * 5;
+      dx.globalAlpha = a;
+      dx.drawImage(sprite, m.x - s / 2, m.y - s / 2, s, s);
+      if (m.glare) {
+        const L = m.r * 4.5;
+        dx.globalAlpha = a * .5;
+        dx.fillStyle = "#fff6f0";
+        dx.fillRect(m.x - L, m.y - .35, L * 2, .7);
+        dx.fillRect(m.x - .35, m.y - L, .7, L * 2);
+      }
+    }
+    dx.globalAlpha = 1;
+    dx.globalCompositeOperation = "source-over";
+  }
+
+  function sceneLoop(t) { drawSky(t); drawDust(t); requestAnimationFrame(sceneLoop); }
+  buildScene();
+  let rT;
+  addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => { buildScene(); if (reduceMotion) { drawSky(0); drawDust(0); } }, 150); });
+  if (reduceMotion) { drawSky(0); drawDust(0); } else requestAnimationFrame(sceneLoop);
+
+  // Optional real clip: couple.mp4 next to index.html replaces the drawn couple
+  const vid = $("couple");
+  vid.addEventListener("error", () => vid.remove());
+  vid.addEventListener("loadeddata", () => { $("scene").classList.add("has-video"); vid.play().catch(() => {}); });
+
+  /* =================== Glitter cover =================== */
   const cover = $("cover"), cv = $("glitter"), ctx = cv.getContext("2d");
-  const COLORS = ["#5a0614", "#7a0c1e", "#a3122a", "#c41e3a", "#e04a5f", "#d9b26a", "#f3dca6", "#f6ebe6", "#8e1426"];
-  let W, H, parts = [], dead = 0, blow = 0, revealed = false, raf, micRead = null, micStream = null;
+  const COLORS = ["#5a0614", "#7a0c1e", "#a3122a", "#c41e3a", "#e04a5f", "#d9b26a", "#f3dca6", "#fbf1ec", "#8e1426"];
+  let W, H, parts = [], dead = 0, revealed = false, raf;
 
   function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const d = Math.min(window.devicePixelRatio || 1, 2);
     W = innerWidth; H = innerHeight;
-    cv.width = W * dpr; cv.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cv.width = W * d; cv.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
   }
   function seed() {
     const n = Math.min(7500, Math.floor(W * H / 50));
     parts = []; dead = 0;
     for (let i = 0; i < n; i++) {
       parts.push({
-        x: Math.random() * W, y: Math.random() * H,
-        s: 1 + Math.random() * 2.6,
+        x: Math.random() * W, y: Math.random() * H, s: 1 + Math.random() * 2.6,
         c: COLORS[(Math.random() * COLORS.length) | 0],
-        ph: Math.random() * 6.283, tw: .6 + Math.random() * 2.2,
-        star: Math.random() < .045,
+        ph: Math.random() * 6.283, tw: .6 + Math.random() * 2.2, star: Math.random() < .045,
         vx: 0, vy: 0, a: 1, free: false, wait: 0, dead: false
       });
     }
   }
-
-  function release(p, vx, vy, wait = 0) {
-    if (p.free) return;
-    p.free = true; p.vx = vx; p.vy = vy; p.wait = wait;
-  }
-
+  function release(p, vx, vy, wait = 0) { if (p.free) return; p.free = true; p.vx = vx; p.vy = vy; p.wait = wait; }
   function burst(cx, cy) {
-    cover.classList.add("blowing");
+    cover.classList.add("opening");
     const maxD = Math.hypot(W, H);
     for (const p of parts) {
-      const dx = p.x - cx, dy = p.y - cy, d = Math.hypot(dx, dy) || 1;
-      const sp = 6 + Math.random() * 12;
-      release(p, dx / d * sp + (Math.random() - .5) * 3, dy / d * sp - Math.random() * 3, (d / maxD) * 40 + Math.random() * 10);
+      const ddx = p.x - cx, ddy = p.y - cy, dd = Math.hypot(ddx, ddy) || 1, sp = 6 + Math.random() * 12;
+      release(p, ddx / dd * sp + (Math.random() - .5) * 3, ddy / dd * sp - Math.random() * 3, (dd / maxD) * 40 + Math.random() * 10);
     }
   }
-
   function frame(t) {
     ctx.clearRect(0, 0, W, H);
-
-    if (micRead) {
-      const rms = micRead();
-      const target = Math.min(1, Math.max(0, (rms - .035) / .22));
-      blow += (target - blow) * .35;
-      if (blow > .08) cover.classList.add("blowing");
-    }
-
     for (const p of parts) {
       if (p.dead) continue;
-
-      // Blowing lifts glitter from the bottom of the screen upward and outward
-      if (!p.free && blow > .05 && Math.random() < blow * .07 * (.25 + p.y / H)) {
-        release(p, (p.x - W / 2) / W * 8 * blow + (Math.random() - .5) * 4, -(3 + Math.random() * 9) * blow - 1);
-      }
-
       let alpha;
       if (p.free) {
-        if (p.wait > 0) { p.wait--; }
+        if (p.wait > 0) p.wait--;
         else {
-          p.x += p.vx; p.y += p.vy;
-          p.vx *= .985; p.vy = p.vy * .985 - .04;
-          p.a -= .009;
+          p.x += p.vx; p.y += p.vy; p.vx *= .985; p.vy = p.vy * .985 - .04; p.a -= .009;
           if (p.a <= 0 || p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20) { p.dead = true; dead++; continue; }
         }
         alpha = p.a;
-      } else {
-        alpha = .45 + .55 * Math.abs(Math.sin(t * .0015 * p.tw + p.ph));
-      }
-
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = p.c;
-      if (p.star) {
-        const L = p.s * 3;
-        ctx.fillRect(p.x - L, p.y - .5, L * 2, 1);
-        ctx.fillRect(p.x - .5, p.y - L, 1, L * 2);
-      } else {
-        ctx.fillRect(p.x, p.y, p.s, p.s);
-      }
+      } else alpha = .45 + .55 * Math.abs(Math.sin(t * .0015 * p.tw + p.ph));
+      ctx.globalAlpha = alpha; ctx.fillStyle = p.c;
+      if (p.star) { const L = p.s * 3; ctx.fillRect(p.x - L, p.y - .5, L * 2, 1); ctx.fillRect(p.x - .5, p.y - L, 1, L * 2); }
+      else ctx.fillRect(p.x, p.y, p.s, p.s);
     }
     ctx.globalAlpha = 1;
-
     const cleared = dead / parts.length;
-    cover.style.backgroundColor = `rgba(26,2,7,${Math.max(0, 1 - cleared * 1.4)})`;
+    cover.style.backgroundColor = `rgba(20,2,10,${Math.max(0, 1 - cleared * 1.4)})`;
     if (cleared > .55 && !revealed) finish();
     if (cleared < .995) raf = requestAnimationFrame(frame);
   }
-
+  function reveal() {
+    document.body.classList.add("revealed");
+    document.body.classList.remove("locked");
+  }
   function finish() {
     if (revealed) return;
     revealed = true;
     for (const p of parts) release(p, (Math.random() - .5) * 8, -2 - Math.random() * 8, Math.random() * 20);
-    document.body.classList.add("revealed");
-    document.body.classList.remove("locked");
+    reveal();
     cover.classList.add("gone");
-    setTimeout(startMusic, 150);
-    if (micStream) micStream.getTracks().forEach(tr => tr.stop());
     setTimeout(() => { cancelAnimationFrame(raf); cover.remove(); }, 1600);
   }
 
-  async function startMic() {
-    if (!navigator.mediaDevices?.getUserMedia) throw new Error("no mic");
-    micStream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
-    });
-    const ac = new (window.AudioContext || window.webkitAudioContext)();
-    await ac.resume();
-    const an = ac.createAnalyser();
-    an.fftSize = 512;
-    ac.createMediaStreamSource(micStream).connect(an);
-    const buf = new Uint8Array(an.fftSize);
-    micRead = () => {
-      an.getByteTimeDomainData(buf);
-      let sum = 0;
-      for (let i = 0; i < buf.length; i++) { const x = (buf[i] - 128) / 128; sum += x * x; }
-      return Math.sqrt(sum / buf.length);
-    };
-  }
-
-  /* Music: unlocked on the first tap (needed on iPhone), starts as the invitation appears.
-     It stays silent while the microphone listens so the music can't blow the glitter away. */
+  /* =================== Music =================== */
   const music = $("music"), soundBtn = $("soundBtn");
-  let musicUnlocked = false;
-  function unlockMusic() {
-    if (musicUnlocked) return;
-    musicUnlocked = true;
-    music.volume = 0;
-    music.play().then(() => { music.pause(); music.currentTime = 0; music.volume = 1; }).catch(() => { music.volume = 1; });
-  }
-  function startMusic() {
-    music.volume = 1;
-    music.play().catch(() => {});
-  }
+  function startMusic() { music.play().catch(() => {}); }
   soundBtn.addEventListener("click", () => {
     if (music.paused) { startMusic(); soundBtn.classList.remove("muted"); soundBtn.setAttribute("aria-label", "Mute music"); }
     else { music.pause(); soundBtn.classList.add("muted"); soundBtn.setAttribute("aria-label", "Play music"); }
   });
 
-  let mode = "idle";
-  $("startBtn").addEventListener("click", async e => {
-    e.stopPropagation();
-    unlockMusic();
-    if (mode !== "idle") return;
-    mode = "asking";
-    $("startBtn").textContent = "Allow the microphone…";
-    try {
-      await startMic();
-      mode = "listening";
-      cover.classList.add("listening");
-    } catch {
-      mode = "done";
-      burst(W / 2, H / 2);
-    }
-  });
-  cover.addEventListener("click", e => {
-    unlockMusic();
-    if (mode === "asking" || mode === "done") return;
-    mode = "done";
-    burst(e.clientX, e.clientY);
-  });
+  let opened = false;
+  function open(x, y) { if (opened) return; opened = true; startMusic(); burst(x, y); }
+  $("startBtn").addEventListener("click", e => { e.stopPropagation(); open(W / 2, H / 2); });
+  cover.addEventListener("click", e => open(e.clientX, e.clientY));
 
   if (reduceMotion) {
     soundBtn.classList.add("muted"); soundBtn.setAttribute("aria-label", "Play music");
-    cover.remove();
-    document.body.classList.add("revealed");
-    document.body.classList.remove("locked");
+    cover.remove(); reveal();
   } else {
     resize(); seed();
-    addEventListener("resize", () => { if (!revealed) { resize(); seed(); } else resize(); });
+    addEventListener("resize", () => { if (!revealed) { resize(); seed(); } });
     raf = requestAnimationFrame(frame);
   }
 
-  /* ---------------- Stage dust & video ---------------- */
-  const vid = $("couple");
-  vid.addEventListener("error", () => vid.remove());
-  vid.addEventListener("loadeddata", () => vid.play().catch(() => {}));
-
-  const dc = $("dust"), dx = dc.getContext("2d");
-  let DW, DH, dust = [];
-  function sizeDust() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    DW = innerWidth; DH = innerHeight;
-    dc.width = DW * dpr; dc.height = DH * dpr;
-    dx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  function newMote(anyY) {
-    // Spawn inside the main spotlight beam
-    const y = anyY ? Math.random() * DH : -5;
-    const t = y / DH;
-    const left = DW * (.30 + (.18 - .30) * t), right = DW * (.44 + (.84 - .44) * t);
-    return { x: left + Math.random() * (right - left), y, r: .4 + Math.random() * 1.6,
-             vy: .15 + Math.random() * .5, vx: (Math.random() - .3) * .2,
-             ph: Math.random() * 6.283, tw: .5 + Math.random() * 2 };
-  }
-  sizeDust();
-  addEventListener("resize", sizeDust);
-  const moteCount = Math.min(220, Math.floor(DW * DH / 5000));
-  for (let i = 0; i < moteCount; i++) dust.push(newMote(true));
-  function dustFrame(t) {
-    dx.clearRect(0, 0, DW, DH);
-    for (let i = 0; i < dust.length; i++) {
-      const m = dust[i];
-      m.y += m.vy; m.x += m.vx + Math.sin(t * .0006 + m.ph) * .15;
-      if (m.y > DH * .92) { dust[i] = newMote(false); continue; }
-      dx.globalAlpha = .35 + .65 * Math.abs(Math.sin(t * .002 * m.tw + m.ph));
-      dx.fillStyle = m.r > 1.4 ? "#fff4e6" : "#ffd6cc";
-      dx.beginPath(); dx.arc(m.x, m.y, m.r, 0, 6.283); dx.fill();
-    }
-    dx.globalAlpha = 1;
-    requestAnimationFrame(dustFrame);
-  }
-  if (!reduceMotion) requestAnimationFrame(dustFrame);
-
-  /* ---------------- Countdown ---------------- */
+  /* =================== Countdown =================== */
   const target = new Date(EVENT.start).getTime();
   function tick() {
     let diff = Math.max(0, target - Date.now());
@@ -595,7 +750,7 @@
   }
   tick(); setInterval(tick, 1000);
 
-  /* ---------------- Calendar ---------------- */
+  /* =================== Calendar =================== */
   const icsDate = iso => new Date(iso).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
   $("calBtn").addEventListener("click", () => {
     const ics = [
